@@ -17,7 +17,7 @@ public class SettingsController : MonoBehaviour {
 		settingsPanel.SetActive(true);
 
 		// play the fade-in animation
-		animator.Play("Settings - Slide In");
+		animator.Play("SlideIn");
 
 	}
 
@@ -30,7 +30,7 @@ public class SettingsController : MonoBehaviour {
 	IEnumerator CloseSettings ()
 	{
 		// play the slide out animation
-		animator.Play("Settings - Slide Out");
+		animator.Play("SlideOut");
 
 		// pause for a second to let the animation play
 		yield return new WaitForSeconds(1.0f);
