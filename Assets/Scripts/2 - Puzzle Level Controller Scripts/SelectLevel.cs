@@ -31,6 +31,7 @@ public class SelectLevel : MonoBehaviour {
 		// convert the number-named GameObject into an integer
 		int level = int.Parse(UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.name);
 
+		// Load the appropriate puzzle LEVEL panel
 		loadPuzzleGame.LoadPuzzle(level, selectedPuzzle);
 
 	}
