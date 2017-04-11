@@ -5,6 +5,9 @@ using UnityEngine;
 public class SelectLevel : MonoBehaviour {
 
 	[SerializeField]
+	private LoadPuzzleGame loadPuzzleGame;
+
+	[SerializeField]
 	private GameObject selectPuzzleMenuPanel, puzzleLevelSelectPanel;
 
 	[SerializeField]
@@ -18,6 +21,17 @@ public class SelectLevel : MonoBehaviour {
 	{
 
 		StartCoroutine ( ShowPuzzleSelectMenu() );
+
+	}
+
+
+	public void SelectPuzzleLevel ()
+	{
+
+		// convert the number-named GameObject into an integer
+		int level = int.Parse(UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.name);
+
+		loadPuzzleGame.LoadPuzzle(level, selectedPuzzle);
 
 	}
 
@@ -44,6 +58,10 @@ public class SelectLevel : MonoBehaviour {
 		puzzleLevelSelectPanel.SetActive(false);
 	}
 
-
-
+	// Set the Selected Puzzle
+	public void SetSelectedPuzzle(string a)
+	{
+		this.selectedPuzzle = a;
+		Debug.Log("The selected PUZZLE is [" + a + "]");
+	}
 }

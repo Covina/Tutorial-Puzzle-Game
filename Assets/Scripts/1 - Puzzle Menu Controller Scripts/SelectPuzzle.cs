@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class SelectPuzzle : MonoBehaviour {
 
-	[SerializeField]
-	private GameObject selectPuzzleMenuPanel, puzzleLevelSelectPanel;
+	// store the selected level 1-5
+	[SerializeField] private SelectLevel selectLevel;
 
-	[SerializeField]
-	private Animator selectPuzzleMenuAnimator, puzzleLevelSelectAnimator;
+	// 
+	[SerializeField] private GameObject selectPuzzleMenuPanel, puzzleLevelSelectPanel;
+
+	// 
+	[SerializeField] private Animator selectPuzzleMenuAnimator, puzzleLevelSelectAnimator;
 
 
 	private string selectedPuzzle;
@@ -18,6 +21,9 @@ public class SelectPuzzle : MonoBehaviour {
 	{
 		// capture the name of the button that is clicked on
 		selectedPuzzle = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.name;
+
+		// pass the name to set the selected Puzzle
+		selectLevel.SetSelectedPuzzle(selectedPuzzle);
 
 		StartCoroutine( ShowPuzzleLevelSelectMenu() );
 		
