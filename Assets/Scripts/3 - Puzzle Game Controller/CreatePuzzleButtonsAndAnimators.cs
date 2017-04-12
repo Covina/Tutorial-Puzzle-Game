@@ -8,6 +8,9 @@ public class CreatePuzzleButtonsAndAnimators : MonoBehaviour {
 	// The puzzle button object prefab
 	[SerializeField] private Button puzzleButton;
 
+	// 
+	[SerializeField] private LayoutPuzzleButtons layoutPuzzleButtons;
+
 	// How many buttons will the game have
 	private int puzzleGame1 = 6;
 	private int puzzleGame2 = 12;
@@ -45,14 +48,38 @@ public class CreatePuzzleButtonsAndAnimators : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		
+
+		// pass the formed button and animator lists to layoutPuzzleButtons
+		AssignButtonsAndAnimators();
 	}
-	
+
+
+	void AssignButtonsAndAnimators()
+	{
+		// pass the List<> of buttons from this script to the other
+		layoutPuzzleButtons.level1Buttons = level1Buttons;
+		layoutPuzzleButtons.level2Buttons = level2Buttons;
+		layoutPuzzleButtons.level3Buttons = level3Buttons;
+		layoutPuzzleButtons.level4Buttons = level4Buttons;
+		layoutPuzzleButtons.level5Buttons = level5Buttons;
+
+		// animators to pass along
+		layoutPuzzleButtons.level1Animator = level1Animators;
+		layoutPuzzleButtons.level2Animator = level2Animators;
+		layoutPuzzleButtons.level3Animator = level3Animators;
+		layoutPuzzleButtons.level4Animator = level4Animators;
+		layoutPuzzleButtons.level5Animator = level5Animators;
+
+
+	}
+
+
 	// Update is called once per frame
 	void Update () {
 		
 	}
 
+	// TODO Parent the buttons into a container in the hierarchy
 	// Create and populate the Button Lists
 	private void CreateButtons ()
 	{
