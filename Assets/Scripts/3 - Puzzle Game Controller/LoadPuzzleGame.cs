@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class LoadPuzzleGame : MonoBehaviour {
 
+	[SerializeField] private PuzzleGameManager puzzleGameManager;
+
 	[SerializeField] private LayoutPuzzleButtons layoutPuzzleButtons;
 
 	// the Puzzle level selection panel
@@ -17,6 +19,9 @@ public class LoadPuzzleGame : MonoBehaviour {
 
 	// The five GAME animators
 	[SerializeField] private Animator puzzleGameAnimator1, puzzleGameAnimator2, puzzleGameAnimator3, puzzleGameAnimator4, puzzleGameAnimator5;
+
+
+	private List<Animator> anims;
 
 	// Store which puzzle level we are currently on
 	private int puzzleLevel;
@@ -34,6 +39,7 @@ public class LoadPuzzleGame : MonoBehaviour {
 
 		// set the LEVEL
 		this.puzzleLevel = level;
+
 
 		layoutPuzzleButtons.LayoutButtons(level, selectedPuzzle);
 
@@ -68,6 +74,8 @@ public class LoadPuzzleGame : MonoBehaviour {
 	// return to Level Select menu
 	public void BackToPuzzleLevelSelectMenu ()
 	{
+		// remove the Game Finished panel if it's there
+		anims = puzzleGameManager.ResetGameplay();
 
 		// Load the chosen LEVEL select menu
 		switch (puzzleLevel) {
@@ -102,16 +110,24 @@ public class LoadPuzzleGame : MonoBehaviour {
 	IEnumerator LoadPuzzleLevelSelectMenu (GameObject puzzleGamePanel, Animator puzzleGamePanelAnim)
 	{
 		// Activate the LEVEL panel
-		puzzleLevelSelectPanel.SetActive(true);
+		puzzleLevelSelectPanel.SetActive (true);
 
 		// slide out the GAME panel
-		puzzleGamePanelAnim.Play("SlideOut");
+		puzzleGamePanelAnim.Play ("SlideOut");
 
 		// slide in the LEVEL select
-		puzzleLevelSelectAnimator.Play("SlideIn");
+		puzzleLevelSelectAnimator.Play ("SlideIn");
 
 		// wait 
-		yield return new WaitForSeconds(1f);
+		yield return new WaitForSeconds (1f);
+
+		// reset all card animations
+		foreach (Animator anim in anims) {
+			anim.Play("Idle");
+		}
+
+		// wait 
+		yield return new WaitForSeconds (0.5f);
 
 		// set the GAME panel to active
 		puzzleGamePanel.SetActive(false);

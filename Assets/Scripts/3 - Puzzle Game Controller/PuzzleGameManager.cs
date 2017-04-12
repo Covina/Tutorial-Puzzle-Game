@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class PuzzleGameManager : MonoBehaviour {
 
+	private GameFinished gameFinished;
 
 	private List<Button> puzzleButtons = new List<Button>();
 
@@ -20,6 +21,12 @@ public class PuzzleGameManager : MonoBehaviour {
 	private bool firstGuess, secondGuess;
 	private int firstGuessIndex, secondGuessIndex;
 	private string firstGuessImageName, secondGuessImageName;
+
+
+	private int countTryGuesses;
+	private int countCorrectGuesses;
+	private int gameGuess;
+
 
 
 	public void PickAPuzzle ()
@@ -44,7 +51,10 @@ public class PuzzleGameManager : MonoBehaviour {
 			secondGuessImageName = gamePuzzleSprites[secondGuessIndex].name;
 
 			StartCoroutine( TurnPuzzleButtonUp (puzzleButtonsAnimators[secondGuessIndex], puzzleButtons[secondGuessIndex], gamePuzzleSprites[secondGuessIndex]) );
-		
+
+			// increment total guesses
+			countTryGuesses++;
+
 
 		}
 
@@ -63,7 +73,9 @@ public class PuzzleGameManager : MonoBehaviour {
 			puzzleButtonsAnimators [firstGuessIndex].Play ("FadeOut");
 			puzzleButtonsAnimators [secondGuessIndex].Play ("FadeOut");
 
-			// TODO - increment score
+			// Increment score
+			CheckIfGameFinished ();
+
 		} else {
 			// incorrect guess
 
@@ -82,6 +94,20 @@ public class PuzzleGameManager : MonoBehaviour {
 		firstGuess = false;
 		secondGuess = false;
 
+
+	}
+
+
+	public List<Animator> ResetGameplay ()
+	{
+
+		firstGuess = secondGuess = false;
+		countTryGuesses = 0;
+		countCorrectGuesses = 0;
+
+		gameFinished.HideGameFinishedPanel();
+
+		return puzzleButtonsAnimators;
 
 	}
 
@@ -111,6 +137,61 @@ public class PuzzleGameManager : MonoBehaviour {
 
 	}
 
+	void CheckIfGameFinished ()
+	{
+		countCorrectGuesses++;
+
+		// correct guesses matches the Game's pairs, game is over;  dislpay game finished panel
+		if (countCorrectGuesses == gameGuess) {
+
+			CheckHowManyGuesses();
+			
+
+		}
+
+	}
+
+
+	void CheckHowManyGuesses ()
+	{
+		int howManyGuesses = 0;
+
+		switch (level) {
+
+		case 0:
+			howManyGuesses = 5;
+			break;
+		case 1:
+			howManyGuesses = 10;
+			break;
+		case 2:
+			howManyGuesses = 15;
+			break;
+		case 3:
+			howManyGuesses = 20;
+			break;
+		case 4:
+			howManyGuesses = 25;
+			break;
+
+		}
+
+
+		// determine how many stars now, comparing guesses to thresholds
+		if (countTryGuesses < howManyGuesses) {
+			// three stars
+			gameFinished.ShowGameFinishedPanel (3);
+		} else if (countTryGuesses < (howManyGuesses + 5)) {
+			gameFinished.ShowGameFinishedPanel (2);
+		} else {
+			gameFinished.ShowGameFinishedPanel(1);
+		}
+
+
+
+	}
+
+
 
 	void AddListeners ()
 	{
@@ -131,6 +212,9 @@ public class PuzzleGameManager : MonoBehaviour {
 	{
 		this.puzzleButtons = buttons;
 		this.puzzleButtonsAnimators = animators;
+
+		// set minimum guesses required to beat level
+		gameGuess = puzzleButtons.Count / 2;
 
 		puzzleBackgroundImage = puzzleButtons[0].image.sprite;
 
