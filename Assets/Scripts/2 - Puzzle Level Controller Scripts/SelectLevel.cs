@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class SelectLevel : MonoBehaviour {
 
-	[SerializeField]
-	private LoadPuzzleGame loadPuzzleGame;
 
-	[SerializeField]
-	private GameObject selectPuzzleMenuPanel, puzzleLevelSelectPanel;
+	[SerializeField] private PuzzleGameManager puzzleGameManager;
 
-	[SerializeField]
-	private Animator selectPuzzleMenuAnimator, puzzleLevelSelectAnimator;
+	[SerializeField] private LoadPuzzleGame loadPuzzleGame;
+
+	[SerializeField] private GameObject selectPuzzleMenuPanel, puzzleLevelSelectPanel;
+
+	[SerializeField] private Animator selectPuzzleMenuAnimator, puzzleLevelSelectAnimator;
 
 
 	private string selectedPuzzle;
@@ -30,6 +30,9 @@ public class SelectLevel : MonoBehaviour {
 
 		// convert the number-named GameObject into an integer
 		int level = int.Parse(UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.name);
+
+		// inform the puzzle game manager which LEVEL was selected
+		puzzleGameManager.SetLevel(level);
 
 		// Load the appropriate puzzle LEVEL panel
 		loadPuzzleGame.LoadPuzzle(level, selectedPuzzle);

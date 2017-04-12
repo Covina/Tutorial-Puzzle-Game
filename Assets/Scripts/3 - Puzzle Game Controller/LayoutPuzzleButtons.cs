@@ -70,6 +70,8 @@ public class LayoutPuzzleButtons : MonoBehaviour {
 
 			}
 
+			setupPuzzleGame.SetPuzzleButtonsAndAnimators(level1Buttons, level1Animator);
+
 			break;
 
 		// Activate the level chosen buttons
@@ -95,6 +97,8 @@ public class LayoutPuzzleButtons : MonoBehaviour {
 				}
 
 			}
+
+			setupPuzzleGame.SetPuzzleButtonsAndAnimators(level2Buttons, level2Animator);
 
 			break;
 
@@ -122,6 +126,7 @@ public class LayoutPuzzleButtons : MonoBehaviour {
 
 			}
 
+			setupPuzzleGame.SetPuzzleButtonsAndAnimators(level3Buttons, level3Animator);
 			break;
 
 		// Activate the level chosen buttons
@@ -148,6 +153,7 @@ public class LayoutPuzzleButtons : MonoBehaviour {
 
 			}
 
+			setupPuzzleGame.SetPuzzleButtonsAndAnimators(level4Buttons, level4Animator);
 			break;
 
 		// Activate the level chosen buttons
@@ -174,6 +180,7 @@ public class LayoutPuzzleButtons : MonoBehaviour {
 
 			}
 
+			setupPuzzleGame.SetPuzzleButtonsAndAnimators(level5Buttons, level5Animator);
 			break;
 
 

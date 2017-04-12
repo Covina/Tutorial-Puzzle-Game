@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class SetupPuzzleGame : MonoBehaviour {
 
+	[SerializeField] private PuzzleGameManager puzzleGameManager;
+
 	// init the sprite array for all the sprites in each game
 	private Sprite[] candyPuzzleSprites, transportPuzzleSprites, fruitPuzzleSprites;
 
@@ -174,6 +176,8 @@ public class SetupPuzzleGame : MonoBehaviour {
 
 		PrepareGameSprites();
 
+		puzzleGameManager.SetGamePuzzleSprites(this.gamePuzzles);
+
 	}
 
 	public void SetPuzzleButtonsAndAnimators(List<Button> puzzButtons, List<Animator> puzzButtonsAnims)
@@ -181,6 +185,8 @@ public class SetupPuzzleGame : MonoBehaviour {
 
 		this.puzzleButtons = puzzButtons;
 		this.puzzleButtonAnimators = puzzButtonsAnims;
+
+		puzzleGameManager.SetUpButtonsAndAnimators(puzzleButtons, puzzleButtonAnimators);
 
 
 	}

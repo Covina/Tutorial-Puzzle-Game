@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class SelectPuzzle : MonoBehaviour {
 
+
+	[SerializeField] private PuzzleGameManager puzzleGameManager;
+
 	// store the selected level 1-5
 	[SerializeField] private SelectLevel selectLevel;
 
@@ -21,6 +24,9 @@ public class SelectPuzzle : MonoBehaviour {
 	{
 		// capture the name of the button that is clicked on
 		selectedPuzzle = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.name;
+
+		// inform puzzle game manager which PUZZLE was selected
+		puzzleGameManager.SetSelectedPuzzle(selectedPuzzle);
 
 		// pass the name to set the selected Puzzle
 		selectLevel.SetSelectedPuzzle(selectedPuzzle);
