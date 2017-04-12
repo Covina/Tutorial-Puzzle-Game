@@ -14,6 +14,8 @@ public class LayoutPuzzleButtons : MonoBehaviour {
 
 	[SerializeField] private Sprite[] puzzleButtonsBackSideImages;
 
+	[SerializeField] private SetupPuzzleGame setupPuzzleGame;
+
 
 
 	// hold which LEVEL is selected
@@ -28,7 +30,14 @@ public class LayoutPuzzleButtons : MonoBehaviour {
 		this.puzzleLevel = level;
 		this.selectedPuzzle = puzzle;
 
+
+		// Pass the PUZZLE and LEVEL and prepare the actual game;
+		setupPuzzleGame.SetLevelandPuzzle(puzzleLevel, selectedPuzzle);
+
+		// Manage objects in the hierarchy and set backside card images
 		LayoutPuzzle();
+
+
 
 	}
 
